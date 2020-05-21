@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void addClicked(View view) {
         if (gro.getText().toString().isEmpty() || prc.getText().toString().isEmpty())
-        {Toast.makeText(this, "Invalid Entry:Blank entries not allowed.", Toast.LENGTH_SHORT).show();
+        {Toast.makeText(this, "Invalid Entry:Blank entries not allowed", Toast.LENGTH_SHORT).show();
 
         }
         else {
