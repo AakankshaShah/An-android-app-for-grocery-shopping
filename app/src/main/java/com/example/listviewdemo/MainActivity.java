@@ -24,13 +24,13 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-ListView grocery,price;
-EditText gro,prc;
-    ArrayList<String>groceryItemList=new ArrayList<String>();
-    ArrayList<String>priceList=new ArrayList<String>();
+    ListView grocery, price;
+    EditText gro, prc;
+    ArrayList<String> groceryItemList = new ArrayList<String>();
+    ArrayList<String> priceList = new ArrayList<String>();
     ArrayAdapter<String> groadapter;
     ArrayAdapter<String> prcadapter;
-    float s=0;
+    float s = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,19 +38,17 @@ EditText gro,prc;
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        grocery=(ListView)findViewById(R.id.grocery);
-        price=(ListView)findViewById(R.id.price);
-        gro=(EditText) findViewById(R.id.groceryName);
-        prc=(EditText) findViewById(R.id.priceName);
-        groadapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,groceryItemList)
-
-        {
+        grocery = (ListView) findViewById(R.id.grocery);
+        price = (ListView) findViewById(R.id.price);
+        gro = (EditText) findViewById(R.id.groceryName);
+        prc = (EditText) findViewById(R.id.priceName);
+        groadapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, groceryItemList) {
 
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
-                View view =super.getView(position, convertView, parent);
+                View view = super.getView(position, convertView, parent);
 
-                TextView textView=(TextView) view.findViewById(android.R.id.text1);
+                TextView textView = (TextView) view.findViewById(android.R.id.text1);
 
                 /*YOUR CHOICE OF COLOR*/
                 textView.setTextColor(Color.WHITE);
@@ -60,26 +58,22 @@ EditText gro,prc;
         };
 
 
-
-        prcadapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,priceList)
-
-        {
+        prcadapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, priceList) {
 
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
-            View view =super.getView(position, convertView, parent);
+                View view = super.getView(position, convertView, parent);
 
-            TextView textView=(TextView) view.findViewById(android.R.id.text1);
+                TextView textView = (TextView) view.findViewById(android.R.id.text1);
 
-            /*YOUR CHOICE OF COLOR*/
-            textView.setTextColor(Color.WHITE);
+                /*YOUR CHOICE OF COLOR*/
+                textView.setTextColor(Color.WHITE);
 
-            return view;
-        }
+                return view;
+            }
         };
         grocery.setAdapter(groadapter);
         price.setAdapter(prcadapter);
-
 
 
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -114,26 +108,33 @@ EditText gro,prc;
         return super.onOptionsItemSelected(item);
     }
 
-    public void total()
-    {
-        for(String x:priceList)
-        {
-            s=s+Float.parseFloat(x);
+    public void total() {
+        for (String x : priceList) {
+            s = s + Float.parseFloat(x);
             //String z=Float.toString(s);
             //Toast.makeText(this,"The total price is:"+z,Toast.LENGTH_LONG).show();
         }
-        String z=Float.toString(s);
-        Toast.makeText(this,"The total price is:"+z,Toast.LENGTH_LONG).show();
-        s=0;
+        String z = Float.toString(s);
+        Toast.makeText(this, "The total price is:" + z, Toast.LENGTH_LONG).show();
+        s = 0;
         //Log.i("heey",z);
 
     }
-    public void addClicked(View view)
-    {groceryItemList.add(gro.getText().toString());
-    priceList.add(prc.getText().toString());
-        grocery.setAdapter(groadapter);
-        price.setAdapter(prcadapter);
-        total();
+
+    public void addClicked(View view) {
+        if (gro.getText().toString().isEmpty() || prc.getText().toString().isEmpty())
+        {Toast.makeText(this, "Invalid Entry:Blank entries not allowed.", Toast.LENGTH_SHORT).show();
+
+        }
+        else {
+            groceryItemList.add(gro.getText().toString());
+            priceList.add(prc.getText().toString());
+
+            grocery.setAdapter(groadapter);
+            price.setAdapter(prcadapter);
+            total();
+        }
+
 
     }
 }
